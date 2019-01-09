@@ -14,7 +14,14 @@ RUN apt-get update -q \
 RUN apt-get update -q && apt-get install -y texlive-latex-recommended texlive-science latexmk
 
 # Install tuddesign-Packages
-COPY ./deb/ /tmp/deb/
+WORKDIR /tmp/deb
+ARG server="http://exp1.fkp.physik.tu-darmstadt.de/tuddesign/pool"
+RUN wget $server/tudfonts/t1-tudfonts_0.0.20090806_all.deb \
+    && wget $server/tudfonts/ttf-tudfonts_0.0.20090806_all.deb \
+    && wget $server/tex-tudfonts/tex-tudfonts_0.0.20090806_all.deb \
+    && wget $server/latex-tuddesign/latex-tuddesign_1.0.20140928_all.deb \
+    && wget $server/latex-tuddesign-thesis/latex-tuddesign-thesis_0.0.20140703_all.deb
+
 RUN pwd && ls  && ls /tmp/deb
 RUN apt install -y /tmp/deb/*-tudfonts_*.deb
 RUN apt install -y /tmp/deb/latex-tuddesign_*.deb

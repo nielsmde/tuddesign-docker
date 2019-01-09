@@ -1,0 +1,4 @@
+#!/bin/bash
+
+p=$(realpath $0)
+export PATH=$(dirname $p):$PATH
